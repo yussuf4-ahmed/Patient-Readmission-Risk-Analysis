@@ -27,10 +27,7 @@ The dashboard provides insights into:
 - **Excel** – Initial data preparation  
 - **GitHub** – Version control & project hosting  
 
----
-
-## 📊 Dashboard Preview  
-![Dashboard](Patient Dashboard Image.png)  
+--- 
 
 ---
 
