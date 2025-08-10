@@ -19,7 +19,7 @@ The dashboard provides insights into:
 
 ## 📜 SQL Scripts
 1. `01_create_table.sql` – Table creation & schema definition
-USE PatientData;
+` USE PatientData;
 
 SELECT * FROM PatientData;
 
@@ -114,7 +114,7 @@ ADD VisitDate DATE;
 
 -- Update it with random dates in 2024
 UPDATE PatientData
-SET VisitDate = DATEADD(DAY, ABS(CHECKSUM(NEWID())) % 365, '2024-01-01');
+SET VisitDate = DATEADD(DAY, ABS(CHECKSUM(NEWID())) % 365, '2024-01-01'); `
 
 ## 🚀 How to Use
 1. Import `PatientData_Clean.csv` into SQL Server
