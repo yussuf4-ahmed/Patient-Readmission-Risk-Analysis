@@ -26,14 +26,15 @@ The dashboard provides insights into:
 ![Dashboard](images/dashboard_preview.png)
 
 ## 📜 SQL Scripts
-### 1️⃣ View Patient Data
-``sql
+## SQL Queries
+
+```sql
 USE PatientData;
 
 SELECT * FROM PatientData;
 
-### 2️⃣ Calculate Risk Score & Risk Category
-```sql
+---- Risk_Score and Risk_Category----
+
 SELECT *,
     (num_procedures * 2) + (days_in_hospital * 1.5) + (comorbidity_score * 3) AS Risk_Score,
     CASE 
@@ -41,9 +42,10 @@ SELECT *,
         WHEN ((num_procedures * 2) + (days_in_hospital * 1.5) + (comorbidity_score * 3)) > 12 THEN 'Moderate Risk'
         ELSE 'Low Risk'
     END AS Risk_Category
-FROM PatientData;
-### 3️⃣ Create Readmission Risk View
-``sql
+FROM PatientData ;
+
+-- view --
+
 CREATE VIEW vw_patient_readmission_risk AS
 SELECT *,
     (num_procedures * 2) + (days_in_hospital * 1.5) + (comorbidity_score * 3) AS Risk_Score,
@@ -52,16 +54,12 @@ SELECT *,
         WHEN ((num_procedures * 2) + (days_in_hospital * 1.5) + (comorbidity_score * 3)) > 12 THEN 'Moderate Risk'
         ELSE 'Low Risk'
     END AS Risk_Category
-FROM PatientData;
+FROM PatientData ;
 
-### 4️⃣ KPI Queries
-#### Total Patients
-```sql
-SELECT COUNT(*) AS Total_Patients 
-FROM vw_patient_readmission_risk;
+-- Total Patients --
+SELECT COUNT(*) AS Total_Patients FROM vw_patient_readmission_risk;
 
-#### Readmitted vs Not
-```sql
+-- Readmitted vs Not --
 SELECT 
     CASE WHEN readmitted = 1 THEN 'Yes' ELSE 'No' END AS Readmitted_Status,
     COUNT(*) AS Total
@@ -69,8 +67,7 @@ FROM vw_patient_readmission_risk
 GROUP BY 
     CASE WHEN readmitted = 1 THEN 'Yes' ELSE 'No' END;
 
-#### Readmission Rate by Risk Category
-```sql
+-- Readmission Rate by Risk Category --
 SELECT 
     risk_category,
     COUNT(*) AS Total_Patients,
@@ -79,8 +76,7 @@ SELECT
 FROM vw_patient_readmission_risk
 GROUP BY risk_category;
 
-#### Readmission by Age Groups
-```sql
+-- Readmission by Age Groups --
 SELECT 
     CASE 
         WHEN age BETWEEN 0 AND 18 THEN '0-18'
@@ -101,8 +97,8 @@ GROUP BY
         WHEN age BETWEEN 51 AND 65 THEN '51-65'
         ELSE '66+'
     END;
-#### Readmissions by Discharge Destination
-```sql
+
+-- Readmissions by Discharge Destination --
 SELECT 
     discharge_to,
     COUNT(*) AS Total_Patients,
@@ -111,8 +107,7 @@ SELECT
 FROM vw_patient_readmission_risk
 GROUP BY discharge_to;
 
-#### Readmissions by Diagnosis
-```sql
+--  Readmission by Diagnosis --
 SELECT 
     primary_diagnosis,
     COUNT(*) AS Total_Patients,
@@ -121,11 +116,11 @@ SELECT
 FROM vw_patient_readmission_risk
 GROUP BY primary_diagnosis;
 
-### 5️⃣ Add Visit Date for Trends
-```sql
+-- Add VisitDate column
 ALTER TABLE PatientData
 ADD VisitDate DATE;
 
+-- Update it with random dates in 2024
 UPDATE PatientData
 SET VisitDate = DATEADD(DAY, ABS(CHECKSUM(NEWID())) % 365, '2024-01-01');
 
@@ -143,7 +138,7 @@ Geographic Map (if location data available)
 Load the dataset into SQL Server.
 Run the SQL scripts in order.
 Connect Power BI to SQL Server.
-Import the ``` sql view vw_patient_readmission_risk and build visuals
+Import the  **view vw_patient_readmission_risk** and build visuals
 
 
 
