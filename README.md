@@ -26,9 +26,6 @@ The dashboard provides insights into:
 - **Power BI** – Dashboard & visualizations  
 - **Excel** – Initial data preparation  
 - **GitHub** – Version control & project hosting  
-
---- 
-
 ---
 
 ## 📜 SQL Scripts  
