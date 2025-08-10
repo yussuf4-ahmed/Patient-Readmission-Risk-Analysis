@@ -30,7 +30,7 @@ The dashboard provides insights into:
 ---
 
 ## 📊 Dashboard Preview  
-![Dashboard](images/dashboard_preview.png)  
+![Dashboard](Patient Dashboard Image.png)  
 
 ---
 
